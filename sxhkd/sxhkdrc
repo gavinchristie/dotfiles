@@ -1,0 +1,184 @@
+# BSPWM custom keybindings
+# May 11th 2018
+
+######################################
+##             Programs             ##
+######################################
+
+# Arandr
+super + shift + a
+	arandr
+
+# Ranger
+super + shift + r
+	$TERMINAL -e ranger
+
+# Vim
+super + shift + e
+	$TERMINAL -e vim
+
+# Firefox
+super + shift + b
+	$BROWSER
+
+# Cmus
+super + shift + m
+	$TERMINAL -e cmus
+
+# Thunar
+super + shift + t
+	thunar
+
+# Googler
+super + shift + g
+	$TERMINAL -e googler
+
+# RTV
+super + shift + v
+	$TERMINAL -e rtv
+
+# YouTube-Viewer
+super + shift + y
+	$TERMINAL -e youtube-viewer
+
+# Sublime
+super + shift + s
+	$TERMINAL -e subl
+
+# Lynx
+super + shift + ctrl + b
+	$TERMINAL -e lynx
+
+# Libreoffice
+super + shift + o
+	libreoffice
+
+# Urxvt
+super + Return
+	default-terminal
+
+# URxvt - Open here
+super + shift + Return
+	open-terminal-here
+
+# Htop
+super + shift + h
+	$TERMINAL -e htop
+
+# Calcurse
+super + shift + c
+	$TERMINAL -e calcurse
+
+# Visual Studio
+
+# Network Manager
+super + shift + w
+	networkmanager_dmenu
+
+# Rofi
+super + space
+	rofi -show
+
+
+######################################
+##          BSPWM Functions         ##
+######################################
+
+# Show keybindings
+super + F1
+	$TERMINAL -e keybindings.sh
+
+# Fullscreen
+super + f
+	bspc node -t {fullscreen,tiled}	
+
+# Hide polybar
+
+# Close window
+super + x
+	bspc  node -c
+
+# Kill window
+super + ctrl + x
+	bspc  node -k
+
+# Toggle tiling mode
+super + t
+	{bspc node -t floating && window-placer $(bspc query -T -d | grep -o '"state":"floating"' | wc -l),bspc node -t tiled}
+super + ctrl + t
+	bspc node -t {pseudo_tiled,tiled}
+
+# Make window sticky
+super + i
+	bspc node -g sticky
+
+# Move window to largest space
+super + m
+	windowpromoter
+
+# Temporary desktop switching
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} ^{1-9,10}
+
+# Switch desktops
+#Super+{1-9,0}
+#	focusdesktopofthismonitor {1-9,10}
+
+# Send to desktop
+#Super+shift+{1-9,0}
+#	movetodesktopofthismonitor {1-9,10}
+
+# Switch windows
+super +  {Left,Down,Up,Right}
+	focusmover {west,south,north,east}
+
+# Tile window along that edge
+super + shift + {Left,Down,Up,Right}
+	euclid_mover {west,south,north,east}
+
+# Move window to that position
+super + ctrl + Left,Down,Up,Right}
+	windowgrabber {west,south,north,east}
+
+# Resize window
+super + shift + ctrl + {Left,Down,Up,Right}
+	bspwm_resize.sh {west,south,north,east}
+
+# Balance window tree
+super + b
+	bspc node @/ -B
+
+# Presel window for splitting in certain direction
+alt + ctrl + {a,s,w,d}
+	bspc node -p \~{west,south,north,east} -i
+
+# Kill BSPWM
+super + shift + ctrl + q
+	bspc quit 1
+
+# Shutdown
+super + ctrl + q
+	$TERMINAL -e shutdown now
+
+
+######################################
+##             Settings             ##
+######################################
+
+XF86AudioRaiseVolume
+	volume up
+
+XF86AudioLowerVolume
+	volume down
+
+XF86AudioMute
+	volume mute
+	
+XF86MonBrightnessDown
+ light -U 5 
+
+XF86MonBrightnessUp
+ light -A 5
+
+XF86Sleep
+	systemctl suspend
